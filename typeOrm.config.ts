@@ -3,6 +3,7 @@ import { DataSource } from 'typeorm';
 import { config } from 'dotenv';
 import { User } from './src/user/entities/user.entity';
 import { Profile } from './src/user/entities/profile.entity';
+import { Post } from './src/user/entities/post.entity';
 
 config();
 
@@ -17,5 +18,5 @@ export default new DataSource({
   password: configService.getOrThrow('MSSQL_PASSWORD'),
   migrations: ['migrations/**'],
   options: { trustServerCertificate: true },
-  entities: [User, Profile],
+  entities: [User, Profile, Post],
 });

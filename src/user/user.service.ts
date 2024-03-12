@@ -21,6 +21,7 @@ export class UserService {
     });
     const user = new User({
       ...createUserDto,
+      posts: [],
       profile,
     });
     await this.entityManager.save(user);
