@@ -7,7 +7,7 @@ config();
 
 const configService = new ConfigService();
 
-export default new DataSource ({
+export default new DataSource({
   type: 'mssql',
   host: configService.getOrThrow('MSSQL_HOST'),
   port: +configService.getOrThrow('MSSQL_PORT'),
