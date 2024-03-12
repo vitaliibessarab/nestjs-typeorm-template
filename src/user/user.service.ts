@@ -31,7 +31,10 @@ export class UserService {
   }
 
   async findOne(id: number) {
-    return this.userRepository.findOneBy({ id });
+    return this.userRepository.findOne({
+      where: { id },
+      relations: { profile: true },
+    });
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
