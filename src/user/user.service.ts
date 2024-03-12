@@ -34,7 +34,7 @@ export class UserService {
   async findOne(id: number) {
     return this.userRepository.findOne({
       where: { id },
-      relations: { profile: true },
+      relations: { profile: true, posts: true },
     });
   }
 
