@@ -5,6 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { Profile } from './entities/profile.entity';
+import { Post } from './entities/post.entity';
 
 @Injectable()
 export class UserService {
@@ -41,6 +42,10 @@ export class UserService {
   async update(id: number, updateUserDto: UpdateUserDto) {
     const user = await this.userRepository.findOneBy({ id });
     user.username = updateUserDto.username;
+    const posts = updateUserDto.posts.map(
+      (createPostDto) => new Post(createPostDto),
+    );
+    user.posts = posts;
     await this.entityManager.save(user);
   }
 
