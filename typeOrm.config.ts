@@ -2,6 +2,7 @@ import { ConfigService } from '@nestjs/config';
 import { DataSource } from 'typeorm';
 import { config } from 'dotenv';
 import { User } from './src/user/entities/user.entity';
+import { Profile } from './src/user/entities/profile.entity';
 
 config();
 
@@ -16,5 +17,5 @@ export default new DataSource({
   password: configService.getOrThrow('MSSQL_PASSWORD'),
   migrations: ['migrations/**'],
   options: { trustServerCertificate: true },
-  entities: [User],
+  entities: [User, Profile],
 });

@@ -4,6 +4,7 @@ import { EntityManager, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import { Profile } from './entities/profile.entity';
 
 @Injectable()
 export class UserService {
@@ -14,7 +15,14 @@ export class UserService {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
-    const user = new User(createUserDto);
+    const profile = new Profile({
+      ...createUserDto.profile,
+      fullName: 'Full name',
+    });
+    const user = new User({
+      ...createUserDto,
+      profile,
+    });
     await this.entityManager.save(user);
   }
 
