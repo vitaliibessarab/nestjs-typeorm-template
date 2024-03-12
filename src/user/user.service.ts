@@ -6,6 +6,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { Profile } from './entities/profile.entity';
 import { Post } from './entities/post.entity';
+import { Role } from './entities/role.entity';
 
 @Injectable()
 export class UserService {
@@ -20,9 +21,13 @@ export class UserService {
       ...createUserDto.profile,
       fullName: 'Full name',
     });
+    const roles = createUserDto.roles.map(
+      (createRoleDto) => new Role(createRoleDto),
+    );
     const user = new User({
       ...createUserDto,
       posts: [],
+      roles,
       profile,
     });
     await this.entityManager.save(user);
@@ -35,7 +40,7 @@ export class UserService {
   async findOne(id: number) {
     return this.userRepository.findOne({
       where: { id },
-      relations: { profile: true, posts: true },
+      relations: { profile: true, posts: true, roles: true },
     });
   }
 
